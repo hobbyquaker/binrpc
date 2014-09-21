@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "http://github.com/hobbyquaker/binrpc",
@@ -43,5 +43,8 @@
     "grunt-simple-mocha": "~0.4.0",
     "mocha": "~1.21.4",
     "should": "^4.0.4"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
