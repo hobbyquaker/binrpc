@@ -74,14 +74,14 @@ describe('binrpc.buildDouble', function () {
         var buf = binrpc.buildDouble(1234);
         var hexstring = buf.toString('hex');
         (buf instanceof Buffer).should.equal(true);
-        hexstring.should.equal('00 00 00 04 26 90 00 00 00 00 00 0b'.replace(/ /g, ''));
+        hexstring.should.equal('00 00 00 04 13 48 00 00 00 00 00 0c'.replace(/ /g, ''));
     });
 
     it("should return buffer", function () {
         var buf = binrpc.buildDouble(-9999.9999);
         var hexstring = buf.toString('hex');
         (buf instanceof Buffer).should.equal(true);
-        hexstring.should.equal('00 00 00 04 d8 f0 00 07 00 00 00 0e'.replace(/ /g, ''));
+        hexstring.should.equal('00 00 00 04 ec 78 00 03 00 00 00 0f'.replace(/ /g, ''));
     });
 });
 
@@ -90,7 +90,7 @@ describe('binrpc.buildStruct', function () {
         var buf = binrpc.buildStruct({'Temperature': 20.5});
         var hexstring = buf.toString('hex');
         (buf instanceof Buffer).should.equal(true);
-        hexstring.should.equal('00 00 01 01 00 00 00 01 00 00 00 0b 54 65 6d 70 65 72 61 74 75 72 65 00 00 00 04 29 00 00 00 00 00 00 05'.replace(/ /g, ''));
+        hexstring.should.equal('00 00 01 01 00 00 00 01 00 00 00 0b 54 65 6d 70 65 72 61 74 75 72 65 00 00 00 04 14 80 00 00 00 00 00 06'.replace(/ /g, ''));
     });
 });
 
@@ -107,14 +107,26 @@ describe('binrpc.parseData(binrpc.buildDouble(x))', function () {
         binrpc.parseData(buf).content.should.equal(x);
     });
 
+    it("content should return 0.3", function () {
+        var x = 0.3;
+        var buf = binrpc.buildDouble(x);
+        binrpc.parseData(buf).content.should.equal(x);
+    });
+    it("content should return 0.5", function () {
+        var x = 0.5;
+        var buf = binrpc.buildDouble(x);
+        binrpc.parseData(buf).content.should.equal(x);
+    });
+
+
     it("content should return -50.123456", function () {
         var x = -50.123456;
         var buf = binrpc.buildDouble(x);
         binrpc.parseData(buf).content.should.equal(x);
     });
 
-    it("content should return 999.99999", function () {
-        var x = 999.99999;
+    it("content should return 999.999999", function () {
+        var x = 0.999999;
         var buf = binrpc.buildDouble(x);
         binrpc.parseData(buf).content.should.equal(x);
     });

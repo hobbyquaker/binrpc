@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.3",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "http://github.com/hobbyquaker/binrpc",
@@ -10,6 +10,7 @@
     "HomeMatic",
     "binrpc",
     "xmlrpc_bin",
+    "BidCos",
     "CUxD",
     "Homegear",
     "Busware",
