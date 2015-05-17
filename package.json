@@ -1,34 +1,25 @@
 {
-  "version": "0.0.3",
+  "version": "0.1.3",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
-  "homepage": "http://github.com/hobbyquaker/binrpc",
-  "author": "hobbyquaker <hq@ccu.io>",
+  "homepage": "https://github.com/hobbyquaker/binrpc",
+  "author": "Sebastian 'hobbyquaker' Raff <hq@ccu.io>",
   "keywords": [
-    "Smarthome",
-    "Home Automation",
     "HomeMatic",
     "binrpc",
     "xmlrpc_bin",
     "BidCos",
     "CUxD",
-    "Homegear",
-    "Busware",
-    "cul",
-    "coc",
-    "culfw",
-    "FS20",
-    "MAX!",
-    "EnOcean",
-    "FHT"
+    "Homegear"
   ],
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git://github.com/hobbyquaker/binrpc.git"
+    "url": "https://github.com/hobbyquaker/binrpc.git"
   },
   "main": "./lib/binrpc.js",
   "dependencies": {
+    "async": "^0.9.0",
     "binary": "~0.3.0",
     "put": "0.0.6"
   },
@@ -41,8 +32,8 @@
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.5",
+    "grunt-jsdoc": "^0.5.7",
     "grunt-simple-mocha": "~0.4.0",
-    "mocha": "~1.21.4",
     "should": "^4.0.4"
   },
   "directories": {

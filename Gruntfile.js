@@ -11,10 +11,21 @@ module.exports = function(grunt) {
                 reporter: 'tap'
             },
             all: { src: ['tests/*.js'] }
+        },
+        jsdoc : {
+            dist : {
+                src: ['lib/*.js', 'test/*.js'],
+                options: {
+                    destination: 'doc'
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.registerTask('test', ['simplemocha']);
+
+    grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.registerTask('doc', ['jsdoc']);
 
 };
