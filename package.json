@@ -1,9 +1,10 @@
 {
-  "version": "0.1.3",
+  "version": "1.0.0",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
   "author": "Sebastian 'hobbyquaker' Raff <hq@ccu.io>",
+  "test": "grund test",
   "keywords": [
     "HomeMatic",
     "binrpc",
