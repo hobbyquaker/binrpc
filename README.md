@@ -1,21 +1,22 @@
 binrpc
 ======
 
+[![npm version](https://badge.fury.io/js/binrpc.svg)](https://badge.fury.io/js/binrpc) 
+[![Build Status](https://travis-ci.org/hobbyquaker/binrpc.svg?branch=master)](https://travis-ci.org/hobbyquaker/binrpc)
+[![License][mit-badge]][mit-url]
+
+
 HomeMatic xmlrpc_bin:// protocol server and client
 
-For use with CCU1/2, Homegear and CUxD
+For use with CCU1/2 (rfd, hs485d), Homegear and CUxD
 
 Implements the same interface like https://github.com/hobbyquaker/homematic-xmlrpc
-
-## Methods
-
-
-## Events
-
 
 ## Examples
 
 ```javascript
+var rpc = require('binrpc');
+
 var rpcClient = rpc.createClient({host: '192.168.1.100', port: '2001'});
 
 rpcClient.methodCall('setValue', ['LEQ0134153:1', 'STATE', true], function (err, res) {
@@ -27,28 +28,18 @@ rpcClient.methodCall('setValue', ['LEQ0134153:1', 'STATE', true], function (err,
 var rpcServer = rpc.createServer({host: '192.168.1.200', port: '2001'});
 
 rpcServer.on('system.listMethods', function (err, params, callback) {
-    callback(['system.listMethods', 'system.multicall']);
+    callback(['system.listMethods', 'system.multicall', 'event', 'listDevices']);
 });
 ```
 
-## Changelog
-
-#### 0.1.3
-
-* (Sebastian Raff) Bugfixes
-* (Sebastian Raff) alternative concept for explicit type double
-* (Sebastian Raff) integrated handling of system.multicall
-* (Sebastian Raff) keep connections open
-* (Sebastian Raff) only do one request at a time, queue subsequent requests, handle maxQueueLength
-* (Sebastian Raff) separated into factory (binrpc.js), protocol.js, client.js and server.js
-* (Sebastian Raff) more unit tests
+For a full example on how to subscribe to CCU events see [example.js](example.js)
 
 
 ## Further reading
 
+* [HomeMatic RPC Schnittstellen Dokumentation, eQ-3 (German)](http://www.eq-3.de/Downloads/Software/HM-CCU2-Firmware_Updates/Tutorials/HM_XmlRpc_API.pdf)
 * [BIN-RPC reference by Sathya (with Homegear extensions) (English)](https://www.homegear.eu/index.php/Binary_RPC_Reference)
 * [BIN-RPC protocol description by leonsio, homematic-forum (German)](http://homematic-forum.de/forum/viewtopic.php?t=8210&p=57493)
-* [HomeMatic RPC Schnittstellen Dokumentation, eQ-3 (German)](http://www.eq-3.de/Downloads/Software/HM-CCU2-Firmware_Updates/Tutorials/HM_XmlRpc_API.pdf)
 
 ## License
 
@@ -74,3 +65,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+[mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat
+[mit-url]: LICENSE
