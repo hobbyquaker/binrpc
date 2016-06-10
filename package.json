@@ -4,7 +4,6 @@
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
   "author": "Sebastian 'hobbyquaker' Raff <hq@ccu.io>",
-  "test": "grund test",
   "keywords": [
     "HomeMatic",
     "binrpc",
@@ -20,8 +19,8 @@
   },
   "main": "./lib/binrpc.js",
   "dependencies": {
-    "async": "^0.9.0",
-    "binary": "~0.3.0",
+    "async": "1.5.2",
+    "binary": "0.3.0",
     "put": "0.0.6"
   },
   "bugs": {
