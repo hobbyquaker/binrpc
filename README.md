@@ -12,6 +12,11 @@ For use with CCU1/2 (rfd, hs485d), Homegear and CUxD
 
 Implements the same interface like https://github.com/hobbyquaker/homematic-xmlrpc
 
+
+*+Breaking change in v2.0.0:*+ `system.multicall` isn't resolved in single calls anymore. This should be
+done by the application itself and was removed to be consistent with 
+[homematic-xmlrpc](https://github.com/hobbyquaker/homematic-xmlrpc).
+
 ## Examples
 
 ```javascript
@@ -46,7 +51,7 @@ For a full example on how to subscribe to CCU events see [example.js](example.js
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 Sebastian 'hobbyquaker' Raff
+Copyright (c) 2014-2017 Sebastian 'hobbyquaker' Raff
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
