@@ -46,14 +46,14 @@ function subscribe() {
 }
 
 process.on('SIGINT', function () {
-    unscribe();
+    unsubscribe();
 });
 
 
 /**
  * Tell the CCU that we no longer want to receive events
  */
-function unscribe() {
+function unsubscribe() {
     console.log(' > ', 'init', ['xmlrpc_bin://' + thisHost + ':2001', '']);
     rpcClient.methodCall('init', ['xmlrpc_bin://' + thisHost + ':2001', ''], function (err, res) {
         process.exit(0);
