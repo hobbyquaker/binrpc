@@ -33,12 +33,12 @@
   "license": "MIT",
   "devDependencies": {
     "grunt": "*",
-    "grunt-cli": "^1.2.0",
+    "grunt-cli": "*",
     "grunt-jsdoc": "*",
     "grunt-simple-mocha": "*",
-    "grunt-xo": "^0.16.0",
+    "grunt-xo": "*",
     "should": "*",
-    "xo": "^0.18.1"
+    "xo": "*"
   },
   "directories": {
     "test": "tests"
