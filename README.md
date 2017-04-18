@@ -32,7 +32,7 @@ rpcClient.on('connect', function () {
     });
 });
 
-rpcCliebt.on('error', function (err) {
+rpcClient.on('error', function (err) {
     console.log('binrpc client error', err)  
 });
 
