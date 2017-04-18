@@ -15,7 +15,7 @@ Implements the same interface like https://github.com/hobbyquaker/homematic-xmlr
 you have to wait for the `connect` event before sending data.
 
 
-*+Breaking change in v2.0.0:*+ `system.multicall` isn't resolved in single calls anymore. This should be
+**Breaking change in v2.0.0:** `system.multicall` isn't resolved in single calls anymore. This should be
 done by the application itself and was removed to be consistent with 
 [homematic-xmlrpc](https://github.com/hobbyquaker/homematic-xmlrpc).
 
