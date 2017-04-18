@@ -2,7 +2,7 @@ binrpc
 ======
 
 [![npm version](https://badge.fury.io/js/binrpc.svg)](https://badge.fury.io/js/binrpc) 
-[![Dependency Status](https://img.shields.io/gemnasium/hobbyquaker/binrpc.js.svg?maxAge=2592000)](https://gemnasium.com/github.com/hobbyquaker/binrpc.js)
+[![Dependency Status](https://img.shields.io/gemnasium/hobbyquaker/binrpc.svg?maxAge=2592000)](https://gemnasium.com/github.com/hobbyquaker/binrpc)
 [![Build Status](https://travis-ci.org/hobbyquaker/binrpc.svg?branch=master)](https://travis-ci.org/hobbyquaker/binrpc)
 [![License][mit-badge]][mit-url]
 
