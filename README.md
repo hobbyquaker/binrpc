@@ -2,15 +2,17 @@ binrpc
 ======
 
 [![npm version](https://badge.fury.io/js/binrpc.svg)](https://badge.fury.io/js/binrpc) 
+[![Dependency Status](https://img.shields.io/gemnasium/hobbyquaker/binrpc.js.svg?maxAge=2592000)](https://gemnasium.com/github.com/hobbyquaker/binrpc.js)
 [![Build Status](https://travis-ci.org/hobbyquaker/binrpc.svg?branch=master)](https://travis-ci.org/hobbyquaker/binrpc)
 [![License][mit-badge]][mit-url]
 
 
-HomeMatic xmlrpc_bin:// protocol server and client
+> HomeMatic xmlrpc_bin:// protocol server and client
 
 For use with CCU1/2 (rfd, hs485d), Homegear and CUxD
 
-Implements the same interface like https://github.com/hobbyquaker/homematic-xmlrpc
+Implements the same interface like https://github.com/hobbyquaker/homematic-xmlrpc with one difference:
+you have to wait for the `connect` event before sending data.
 
 
 *+Breaking change in v2.0.0:*+ `system.multicall` isn't resolved in single calls anymore. This should be
@@ -24,9 +26,16 @@ var rpc = require('binrpc');
 
 var rpcClient = rpc.createClient({host: '192.168.1.100', port: '2001'});
 
-rpcClient.methodCall('setValue', ['LEQ0134153:1', 'STATE', true], function (err, res) {
-    console.log('response', err, JSON.stringify(res));
+rpcClient.on('connect', function () {
+    rpcClient.methodCall('setValue', ['LEQ0134153:1', 'STATE', true], function (err, res) {
+        console.log('response', err, JSON.stringify(res));
+    });
 });
+
+rpcCliebt.on('error', function (err) {
+    console.log('binrpc client error', err)  
+});
+
 ```
 
 ```javascript
