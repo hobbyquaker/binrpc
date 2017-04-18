@@ -14,18 +14,21 @@ module.exports = function(grunt) {
         },
         jsdoc : {
             dist : {
-                src: ['lib/*.js', 'test/*.js'],
+                src: ['lib/*.js'],
                 options: {
                     destination: 'doc'
                 }
             }
+        },
+        xo: {
+             target: ['lib/*']
         }
     });
 
+    grunt.loadNpmTasks('grunt-xo');
     grunt.loadNpmTasks('grunt-simple-mocha');
-    grunt.registerTask('test', ['simplemocha']);
+    grunt.registerTask('test', ['xo', 'simplemocha']);
 
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.registerTask('doc', ['jsdoc']);
-
 };

@@ -28,17 +28,23 @@
     "url": "https://github.com/hobbyquaker/binrpc/issues"
   },
   "scripts": {
-    "test": "xo --space 4 --no-esnext --ignore tests/* --ignore Gruntfile.js --ignore example.js && grunt test"
+    "test": "grunt test"
   },
   "license": "MIT",
   "devDependencies": {
     "grunt": "*",
+    "grunt-cli": "^1.2.0",
     "grunt-jsdoc": "*",
     "grunt-simple-mocha": "*",
+    "grunt-xo": "^0.16.0",
     "should": "*",
     "xo": "^0.18.1"
   },
   "directories": {
     "test": "tests"
+  },
+  "xo": {
+    "esnext": false,
+    "space": 4
   }
 }
