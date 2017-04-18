@@ -21,7 +21,6 @@
   },
   "main": "./lib/binrpc.js",
   "dependencies": {
-    "async": "^2.3.0",
     "binary": "^0.3.0",
     "put": "0.0.6"
   },
