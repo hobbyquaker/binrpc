@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
