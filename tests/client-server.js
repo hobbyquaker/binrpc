@@ -17,21 +17,18 @@ describe('client server connection', function () {
         });
     });
     it('should open a server without throwing an error', function () {
-        rpcServer = rpc.createServer({host: '127.0.0.1', port: '2031'});
+        rpcServer = rpc.createServer({host: '127.0.0.1', port: '2035'});
     });
     it('should create a client without error', function () {
-        rpcClient = rpc.createClient({host: 'localhost', port: '2031'});
-    });
-    it('should create a client twice without error', function () {
-        rpcClient = rpc.createClient({host: 'localhost', port: '2031'});
+        rpcClient = rpc.createClient({host: '127.0.0.1', port: '2035'});
     });
     it('should send a call to the server and receive empty string', function (done) {
-        this.timeout(10000);
+        this.timeout(30000);
         rpcServer.on('test1', function (err, params, callback) {
             callback(null, '');
         });
         rpcClient.methodCall('test1', [''], function (err, res) {
-            if (err ) {
+            if (err) {
                 done(err);
             } else if (res !== '') {
                 done(new Error('received wrong response ' + res));
@@ -41,7 +38,7 @@ describe('client server connection', function () {
         });
     });
     it('should send a call with some params to the server and receive some params', function (done) {
-        this.timeout(10000);
+        this.timeout(30000);
         rpcServer.on('test2', function (err, params, callback) {
             params.should.deepEqual([1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}]);
             callback(null, [2, 2.2, 'string2', true, [3, 4, 5], {c: 'c', d: 'd'}]);
@@ -67,5 +64,26 @@ describe('client server connection', function () {
                 done(err);
             }
         });
+    });
+
+    it('should fill up the queue', function (done) {
+        this.timeout(60000);
+        rpcServer.on('slow', function (err, params, callback) {
+            setTimeout(function () {
+                callback(null, '');
+            }, 2000);
+        });
+        for (var i = 0; i < 20; i++) {
+            rpcClient.methodCall('slow', [''], function (err, res) {});
+        }
+        rpcClient.methodCall('slow', [''], function (err, res) {
+            err.toString().should.equal('Error: You are sending too fast');
+            done(!err);
+        });
+    });
+
+    it('should create a client twice without error', function () {
+        var rpcClientTwice = rpc.createClient({host: 'localhost', port: '2033'});
+        rpcClientTwice = rpc.createClient({host: 'localhost', port: '2033'});
     });
 });
