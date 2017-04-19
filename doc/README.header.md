@@ -32,6 +32,7 @@ done by the application itself and was removed to be consistent with
 
 ## Examples
 
+Switch on the Channel `LEQ0134153:1`
 ```javascript
 var rpc = require('binrpc');
 
@@ -43,13 +44,6 @@ rpcClient.methodCall('setValue', ['LEQ0134153:1', 'STATE', true], function (err,
 
 ```
 
-```javascript
-var rpcServer = rpc.createServer({host: '192.168.1.200', port: '2001'});
-
-rpcServer.on('system.listMethods', function (err, params, callback) {
-    callback(['system.listMethods', 'system.multicall', 'event', 'listDevices']);
-});
-```
 
 For a full example on how to subscribe to CCU events see [example.js](example.js)
 
