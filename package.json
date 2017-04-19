@@ -40,7 +40,8 @@
     "grunt-shell": "^2.1.0",
     "grunt-simple-mocha": "latest",
     "grunt-xo": "latest",
-    "nyc": "^10.2.0",
+    "mocha": "latest",
+    "nyc": "latest",
     "should": "latest",
     "xo": "latest"
   },
