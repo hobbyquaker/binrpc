@@ -23,6 +23,7 @@ describe('client server connection', function () {
         rpcClient = rpc.createClient({host: 'localhost', port: '2031'});
     });
     it('should send a call to the server and receive empty string', function (done) {
+        this.timeout(10000);
         rpcServer.on('test1', function (err, params, callback) {
             callback(null, '');
         });
@@ -37,6 +38,7 @@ describe('client server connection', function () {
         });
     });
     it('should send a call with some params to the server and receive some params', function (done) {
+        this.timeout(10000);
         rpcServer.on('test2', function (err, params, callback) {
             params.should.deepEqual([1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}]);
             callback(null, [2, 2.2, 'string2', true, [3, 4, 5], {c: 'c', d: 'd'}]);
@@ -51,6 +53,7 @@ describe('client server connection', function () {
         });
     });
     it('should send a unknown call with some params to the server and trigger a NotFound event', function (done) {
+        this.timeout(30000);
         rpcServer.on('NotFound', function (method, params) {
             method.should.equal('test3');
             params.should.deepEqual([1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}]);
