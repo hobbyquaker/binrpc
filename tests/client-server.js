@@ -17,10 +17,10 @@ describe('client server connection', function () {
         });
     });
     it('should open a server without throwing an error', function () {
-        rpcServer = rpc.createServer({host: '127.0.0.1', port: '2035'});
+        rpcServer = rpc.createServer({host: '127.0.0.1', port: '2037'});
     });
     it('should create a client without error', function () {
-        rpcClient = rpc.createClient({host: '127.0.0.1', port: '2035'});
+        rpcClient = rpc.createClient({host: '127.0.0.1', port: '2037'});
     });
     it('should send a call to the server and receive empty string', function (done) {
         this.timeout(30000);
@@ -86,4 +86,7 @@ describe('client server connection', function () {
         var rpcClientTwice = rpc.createClient({host: 'localhost', port: '2033'});
         rpcClientTwice = rpc.createClient({host: 'localhost', port: '2033'});
     });
+
 });
+
+
