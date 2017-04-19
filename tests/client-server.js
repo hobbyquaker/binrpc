@@ -5,6 +5,19 @@ require('should');
 describe('client server connection', function () {
     var rpcServer;
     var rpcClient;
+    it('should raise an error if no connection can be established', function (done) {
+        var rpcClientNC = rpc.createClient({host: 'localhost', port: '2032'});
+        rpcClientNC.on('error', function (err) {
+            done();
+        });
+        rpcClientNC.methodCall('testNC', [1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}], function (err, res) {
+            if (err) {
+                done()
+            } else {
+                done(new Error('no Error was thrown'));
+            }
+        });
+    });
     it('should open a server without throwing an error', function () {
         rpcServer = rpc.createServer({host: '127.0.0.1', port: '2031'});
     });
@@ -37,6 +50,18 @@ describe('client server connection', function () {
             } else {
                 res.should.deepEqual([2, 2.2, 'string2', true, [3, 4, 5], {c: 'c', d: 'd'}]);
                 done();
+            }
+        });
+    });
+    it('should send a unknown call with some params to the server and trigger a NotFound event', function (done) {
+        rpcServer.on('NotFound', function (method, params) {
+            method.should.equal('test3');
+            params.should.deepEqual([1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}]);
+            done();
+        });
+        rpcClient.methodCall('test3', [1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}], function (err, res) {
+            if (err) {
+                done(err);
             }
         });
     });
