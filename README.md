@@ -455,9 +455,13 @@ decode request
 
 ### new Client(options)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>object</code> | containing a host and a port attribute |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>object</code> |  |  |
+| options.host | <code>string</code> |  | the hostname or ip address to connect to |
+| options.port | <code>number</code> |  | the port to connect to |
+| [options.reconnectTimeout] | <code>number</code> | <code>2500</code> | wait milliseconds until trying to reconnect after the socket was closed |
+| [options.queueMaxLength] | <code>number</code> | <code>15</code> | maximum number of methodCalls that are allowed in the queue |
 
 <a name="Protocol"></a>
 
@@ -479,7 +483,9 @@ decode request
 
 | Param | Type | Description |
 | --- | --- | --- |
-| options | <code>object</code> | containing a host and port attribute |
+| options | <code>object</code> |  |
+| options.host | <code>string</code> | ip address on which the server should listen |
+| options.port | <code>number</code> | port on which the server should listen |
 
 <a name="Server+event_[method]"></a>
 
