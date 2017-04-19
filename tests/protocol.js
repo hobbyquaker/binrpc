@@ -157,14 +157,11 @@ describe('binrpc.encodeStruct', function () {
 });
 
 describe('binrpc.decodeData(binrpc.encodeDouble(x))', function () {
-
-
     it("rest should be zero length buffer", function () {
         var buf = binrpc.decodeData(binrpc.encodeDouble(1234)).rest;
         (buf instanceof Buffer).should.equal(true);
         buf.length.should.equal(0);
     });
-
 });
 
 describe('binrpc.decodeData(binrpc.buildDouble(x))', function () {
@@ -291,6 +288,14 @@ describe('binrpc.decodeArray(elem)', function () {
     });
 });
 
+describe('binrpc.encodeArray(elem)', function () {
+    it('should throw an error if elem is not an instance of Array', function () {
+        (function () {
+            binrpc.encodeArray('string');
+        }).should.throw();
+    });
+});
+
 /* TODO
 describe('binrpc.decodeArray(elem)', function () {
     it('should decode a length 0 array', function () {
@@ -378,6 +383,32 @@ describe('binrpc.encodeRequest', function () {
     it("should throw an error if argument is an empty string", function () {
         (function () {
             binrpc.encodeRequest('');
+        }).should.throw();
+    });
+});
+
+describe('binrpc.encodeResponse', function () {
+    it("should encode an empty string on undefined param", function () {
+        var hexstring = binrpc.encodeResponse().toString('hex');
+        hexstring.should.equal('42 69 6e 01 00 00 00 08 00 00 00 03 00 00 00 00'.replace(/ /g, ''));
+    });
+});
+
+describe('binrpc.encodeStruct', function () {
+    it("should throw an error if argument is not type object", function () {
+        (function () {
+            binrpc.encodeStruct(false);
+        }).should.throw();
+    });
+    it("should not throw an error if object is empty", function () {
+        binrpc.encodeStruct({});
+    });
+});
+
+describe('binrpc.encodeStructKey', function () {
+    it("should throw an error if argument is not type string", function () {
+        (function () {
+            binrpc.encodeStructKey(false);
         }).should.throw();
     });
 });
