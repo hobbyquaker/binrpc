@@ -34,11 +34,7 @@ rpcServer.on('system.multicall', function (err, params, callback) {
     callback(null, '');
 });
 
-
-rpcClient.on('connect', function () {
-    console.log('client connected');
-    subscribe();
-});
+subscribe();
 
 /**
  * Tell the CCU that we want to receive events
