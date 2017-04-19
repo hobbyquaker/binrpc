@@ -41,10 +41,6 @@ rpcClient.methodCall('setValue', ['LEQ0134153:1', 'STATE', true], function (err,
     console.log('response', err, JSON.stringify(res));
 });
 
-rpcClient.on('error', function (err) {
-    console.log('binrpc client error', err)  
-});
-
 ```
 
 ```javascript
