@@ -51,6 +51,13 @@
     "esnext": false,
     "space": 4
   },
+  "nyc": {
+    "exclude": [
+      "tests/*.js",
+      "example.js",
+      "Gruntfile.js"
+    ]
+  },
   "engines": {
     "node": ">4.0.0"
   }
