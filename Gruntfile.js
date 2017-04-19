@@ -12,23 +12,31 @@ module.exports = function(grunt) {
             },
             all: { src: ['tests/*.js'] }
         },
-        jsdoc : {
-            dist : {
-                src: ['lib/*.js'],
-                options: {
-                    destination: 'doc'
-                }
-            }
-        },
         xo: {
              target: ['lib/*']
+        },
+        jsdoc2md: {
+            oneOutputFile: {
+                src: 'lib/*.js',
+                dest: 'doc/api.md'
+            }
+        },
+        concat: {
+            options: {
+                separator: '\n',
+            },
+            dist: {
+                src: ['doc/README.header.md', 'doc/api.md', 'doc/README.footer.md'],
+                dest: 'README.md'
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-xo');
     grunt.loadNpmTasks('grunt-simple-mocha');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.registerTask('test', ['xo', 'simplemocha']);
 
-    grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.registerTask('doc', ['jsdoc']);
+    grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
+    grunt.registerTask('doc', ['jsdoc2md', 'concat']);
 };
