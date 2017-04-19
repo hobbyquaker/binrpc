@@ -31,6 +31,11 @@ rpcServer.on('event', function (err, params, callback) {
 
 rpcServer.on('system.multicall', function (err, params, callback) {
     console.log(' < system.multicall', JSON.stringify(params));
+    var response = [];
+    params[0].forEach(function (call) {
+        console.log(' <', call.methodName, JSON.stringify(call.params));
+         response.push('');
+    });
     callback(null, '');
 });
 
