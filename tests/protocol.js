@@ -84,6 +84,48 @@ describe('binrpc.encodeString', function () {
     });
 });
 
+describe('binrpc.encodeData', function () {
+    it("explicitDouble should return buffer", function () {
+        var buf = binrpc.encodeData({explicitDouble: 1234});
+        var hexstring = buf.toString('hex');
+        (buf instanceof Buffer).should.equal(true);
+        hexstring.should.equal('00 00 00 04 26 90 00 00 00 00 00 0b'.replace(/ /g, ''));
+    });
+    it('should throw an error if elem is undefined', function () {
+        (function () {
+            binrpc.encodeData();
+        }).should.throw();
+    });
+});
+
+describe('binrpc.encodeString', function () {
+    it('should throw an error if elem is not a string', function () {
+        (function () {
+            binrpc.encodeString(123);
+        }).should.throw();
+    });
+});
+
+
+describe('binrpc.decodeStrangeRequest', function () {
+    it('should throw an error if elem is not instanceof Buffer', function () {
+        (function () {
+            binrpc.decodeStrangeRequest('string');
+        }).should.throw();
+    });
+});
+
+describe('binrpc.decodeRequest', function () {
+    it('should throw an error if elem is not instanceof Buffer', function () {
+        (function () {
+            binrpc.decodeRequest('string');
+        }).should.throw();
+    });
+    it('should return false if Buffer doesn\'t start with Bin', function () {
+        binrpc.decodeRequest(Buffer.from('abc')).should.equal.false;
+    });
+});
+
 describe('binrpc.encodeDouble', function () {
     it("should return buffer", function () {
         var buf = binrpc.encodeDouble(1234);
@@ -97,6 +139,11 @@ describe('binrpc.encodeDouble', function () {
         var hexstring = buf.toString('hex');
         (buf instanceof Buffer).should.equal(true);
         hexstring.should.equal('00 00 00 04 d8 f0 00 06 00 00 00 0e'.replace(/ /g, ''));
+    });
+    it('should throw an error if elem is not a number', function () {
+        (function () {
+            binrpc.encodeData('abc');
+        }).should.throw();
     });
 });
 
@@ -171,7 +218,103 @@ describe('binrpc.decodeData(binrpc.encodeBool(x))', function () {
 
 });
 
+describe('binrpc.decodeString(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeString('string');
+        }).should.throw();
+    });
+    it('should throw an error if elem length is < 4', function () {
+        (function () {
+            binrpc.decodeString(Buffer.from('123'));
+        }).should.throw();
+    });
+});
+
+describe('binrpc.decodeInteger(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeInteger('string');
+        }).should.throw();
+    });
+    it('should throw an error if elem length is < 4', function () {
+        (function () {
+            binrpc.decodeInteger(Buffer.from('123'));
+        }).should.throw();
+    });
+});
+
+describe('binrpc.decodeStruct(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeStruct('string');
+        }).should.throw();
+    });
+    it('should throw an error if elem length is < 4', function () {
+        (function () {
+            binrpc.decodeStruct(Buffer.from('123'));
+        }).should.throw();
+    });
+});
+
+
 describe('binrpc.decodeData(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeData('string');
+        }).should.throw();
+    });
+});
+
+describe('binrpc.decodeResponse(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeResponse('string');
+        }).should.throw();
+    });
+    it('should return false if Buffer doesn\'t start with Bin', function () {
+        binrpc.decodeResponse(Buffer.from('abc')).should.equal.false;
+    });
+});
+
+
+describe('binrpc.decodeArray(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeArray('string');
+        }).should.throw();
+    });
+    it('should throw an error if elem length is < 4', function () {
+        (function () {
+            binrpc.decodeArray(Buffer.from('123'));
+        }).should.throw();
+    });
+});
+
+/* TODO
+describe('binrpc.decodeArray(elem)', function () {
+    it('should decode a length 0 array', function () {
+        binrpc.decodeArray(binrpc.encodeArray([])).length.should.equal(0);
+    });
+});
+*/
+
+
+describe('binrpc.decodeBool(elem)', function () {
+    it('should throw an error if elem is not an instance of Buffer', function () {
+        (function () {
+            binrpc.decodeBool('string');
+        }).should.throw();
+    });
+    it('should throw an error if elem length is < 1', function () {
+        (function () {
+            binrpc.decodeBool(Buffer.alloc(0));
+        }).should.throw();
+    });
+});
+
+
+describe('binrpc.decodeDouble(elem)', function () {
     it('should throw an error if elem is not an instance of Buffer', function () {
         (function () {
             binrpc.decodeDouble('string');
@@ -193,6 +336,12 @@ describe('binrpc.decodeData(elem)', function () {
     it('should throw an error if elem is not an instance of Buffer', function () {
         (function () {
             binrpc.decodeDouble([0]);
+        }).should.throw();
+    });
+
+    it('should throw an error if elem length is < 8', function () {
+        (function () {
+            binrpc.decodeDouble(Buffer.from('1234567'));
         }).should.throw();
     });
 });

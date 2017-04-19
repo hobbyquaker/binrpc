@@ -22,6 +22,9 @@ describe('client server connection', function () {
     it('should create a client without error', function () {
         rpcClient = rpc.createClient({host: 'localhost', port: '2031'});
     });
+    it('should create a client twice without error', function () {
+        rpcClient = rpc.createClient({host: 'localhost', port: '2031'});
+    });
     it('should send a call to the server and receive empty string', function (done) {
         this.timeout(10000);
         rpcServer.on('test1', function (err, params, callback) {
