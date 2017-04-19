@@ -142,7 +142,7 @@ describe('binrpc.encodeDouble', function () {
     });
     it('should throw an error if elem is not a number', function () {
         (function () {
-            binrpc.encodeData('abc');
+            binrpc.encodeDouble('abc');
         }).should.throw();
     });
 });
