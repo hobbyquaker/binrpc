@@ -6,10 +6,8 @@ describe('client server connection', function () {
     var rpcServer;
     var rpcClient;
     it('should raise an error if no connection can be established', function (done) {
+        this.timeout(60000);
         var rpcClientNC = rpc.createClient({host: 'localhost', port: '2032'});
-        rpcClientNC.on('error', function (err) {
-            done();
-        });
         rpcClientNC.methodCall('testNC', [1, 1.1, 'string', true, [1, 2, 3], {a: 'a', b: 'b'}], function (err, res) {
             if (err) {
                 done()
@@ -21,9 +19,8 @@ describe('client server connection', function () {
     it('should open a server without throwing an error', function () {
         rpcServer = rpc.createServer({host: '127.0.0.1', port: '2031'});
     });
-    it('should create a client and connect to the server', function (done) {
+    it('should create a client without error', function () {
         rpcClient = rpc.createClient({host: 'localhost', port: '2031'});
-        rpcClient.on('connect', done);
     });
     it('should send a call to the server and receive empty string', function (done) {
         rpcServer.on('test1', function (err, params, callback) {
