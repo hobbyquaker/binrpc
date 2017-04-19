@@ -39,7 +39,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-xo');
     grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-coveralls');
     grunt.loadNpmTasks('grunt-shell');
     grunt.registerTask('test', ['xo', 'simplemocha']);
 
