@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-shell');
-    grunt.registerTask('test', ['xo', 'simplemocha']);
+    grunt.registerTask('test', ['xo', 'simplemocha', 'shell:coveralls']);
 
     grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
     grunt.registerTask('doc', ['jsdoc2md', 'concat']);
