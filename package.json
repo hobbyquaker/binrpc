@@ -32,12 +32,15 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^2.13.0",
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-jsdoc-to-markdown": "latest",
+    "grunt-shell": "^2.1.0",
     "grunt-simple-mocha": "latest",
     "grunt-xo": "latest",
+    "nyc": "^10.2.0",
     "should": "latest",
     "xo": "latest"
   },

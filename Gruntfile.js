@@ -7,8 +7,7 @@ module.exports = function(grunt) {
                 globals: ['expect'],
                 timeout: 3000,
                 ignoreLeaks: false,
-                ui: 'bdd',
-                reporter: 'tap'
+                ui: 'bdd'
             },
             all: { src: ['tests/*.js'] }
         },
@@ -23,11 +22,16 @@ module.exports = function(grunt) {
         },
         concat: {
             options: {
-                separator: '\n',
+                separator: '\n'
             },
             dist: {
                 src: ['doc/README.header.md', 'doc/api.md', 'doc/README.footer.md'],
                 dest: 'README.md'
+            }
+        },
+        shell: {
+            coveralls: {
+                command: 'node_modules/.bin/nyc node_modules/.bin/mocha tests/*.js && node_modules/.bin/nyc report --reporter=text-lcov | node_modules/.bin/coveralls'
             }
         }
     });
@@ -35,6 +39,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-xo');
     grunt.loadNpmTasks('grunt-simple-mocha');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-coveralls');
+    grunt.loadNpmTasks('grunt-shell');
     grunt.registerTask('test', ['xo', 'simplemocha']);
 
     grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
