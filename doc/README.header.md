@@ -10,16 +10,23 @@ binrpc
 
 > HomeMatic xmlrpc_bin:// protocol server and client
 
-For use with CCU1/2 (rfd, hs485d), Homegear and CUxD
+For use with CCU1/2 (rfd, hs485d, Rega), Homegear and CUxD
 
-Implements the same interface like https://github.com/hobbyquaker/homematic-xmlrpc 
+Implements the same interface as [homematic-xmlrpc](https://github.com/hobbyquaker/homematic-xmlrpc), these 2 libs 
+should be a 1:1 drop-in-replacement for each other.
 
+
+## Changelog
+
+**Breaking Change in v3.0.0:** To be consistent with [homematic-xmlrpc](https://github.com/hobbyquaker/homematic-xmlrpc) 
+the RPC client isn't an event emitter anymore. All errors have to be handled through the callback.
+
+**Change in v2.1.0** You don't have to wait for the client connect event before using methodCall.
 
 **Breaking change in v2.0.0:** `system.multicall` isn't resolved in single calls anymore. This should be
 done by the application itself and was removed to be consistent with 
 [homematic-xmlrpc](https://github.com/hobbyquaker/homematic-xmlrpc).
 
-**Change in v2.1.0** You don't have to wait for the client connect event before using methodCall.
 
 ## Examples
 
