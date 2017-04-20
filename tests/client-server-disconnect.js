@@ -4,6 +4,23 @@ require('should');
 
 
 describe('client server disconnect', function () {
+
+    it('should time out', function (done) {
+        this.timeout(60000);
+        var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2039});
+        var rpcClient = rpc.createClient({host: '127.0.0.1', port: 2039});
+        rpcServer.on('veryslow', function (err, params, callback) {
+            setTimeout(function () {
+                callback(null, '');
+            }, 10000);
+        });
+        rpcClient.methodCall('veryslow', [''], function (err, res) {
+            err.toString().should.equal('Error: timeout');
+            done(err ? undefined : new Error(''));
+        });
+    });
+
+
     it('should reconnect when the server is back', function (done) {
         this.timeout(30000);
         var rpcServer2 = rpc.createServer({host: '127.0.0.1', port: 2038});
