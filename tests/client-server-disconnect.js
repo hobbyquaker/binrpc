@@ -21,6 +21,20 @@ describe('client server disconnect', function () {
     });
 
 
+    it('should do nothing when filling up the queue without callback', function () {
+        this.timeout(60000);
+        var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2040});
+        var rpcClient = rpc.createClient({host: '127.0.0.1', port: 2040});
+        rpcServer.on('slow', function (err, params, callback) {
+            setTimeout(function () {
+                callback(null, '');
+            }, 2000);
+        });
+        for (var i = 0; i < 20; i++) {
+            rpcClient.methodCall('slow', ['']);
+        }
+    });
+
     it('should reconnect when the server is back', function (done) {
         this.timeout(30000);
         var rpcServer2 = rpc.createServer({host: '127.0.0.1', port: 2038});

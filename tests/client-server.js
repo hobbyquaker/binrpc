@@ -22,6 +22,9 @@ describe('client server connection', function () {
     it('should create a client without error', function () {
         rpcClient = rpc.createClient({host: '127.0.0.1', port: '2037'});
     });
+    it('should do nothing when shifting an empty queue', function () {
+        rpcClient.queueShift();
+    });
     it('should send a call to the server and receive empty string', function (done) {
         this.timeout(30000);
         rpcServer.on('test1', function (err, params, callback) {
