@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                 command: 'node_modules/.bin/nyc node_modules/.bin/mocha tests/*.js && node_modules/.bin/nyc report --reporter=text-lcov | node_modules/.bin/coveralls --force'
             },
             purgebadges: {
-                command: 'node_modules/.bin/camo-purge'
+                command: 'nvm exec 6 node_modules/camo-purge/index.js'
             }
         }
     });
