@@ -32,6 +32,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "camo-purge": "^1.0.0",
     "coveralls": "latest",
     "grunt": "latest",
     "grunt-cli": "latest",
