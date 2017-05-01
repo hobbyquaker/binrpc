@@ -76,7 +76,7 @@ describe('client server connection', function () {
                 callback(null, '');
             }, 2000);
         });
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 110; i++) {
             rpcClient.methodCall('slow', [''], function (err, res) {});
         }
         rpcClient.methodCall('slow', [''], function (err, res) {

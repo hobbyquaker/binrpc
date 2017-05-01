@@ -30,7 +30,7 @@ describe('client server disconnect', function () {
                 callback(null, '');
             }, 2000);
         });
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 110; i++) {
             rpcClient.methodCall('slow', ['']);
         }
     });
