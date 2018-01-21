@@ -262,7 +262,7 @@ describe('binrpc.decodeData(elem)', function () {
         }).should.throw();
     });
     it('should return undefined if Buffer is empty', function () {
-        let res = binrpc.decodeData(Buffer.from([]));
+        var res = binrpc.decodeData(Buffer.from([]));
         (typeof res).should.equal('undefined');
     });
 });
