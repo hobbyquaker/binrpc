@@ -28,7 +28,7 @@
     "url": "https://github.com/hobbyquaker/binrpc/issues"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "xo lib/* && nyc mocha --exit tests/* && nyc report --reporter=text-lcov | coveralls --force"
   },
   "license": "MIT",
   "devDependencies": {
