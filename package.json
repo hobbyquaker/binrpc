@@ -55,7 +55,12 @@
   },
   "xo": {
     "esnext": false,
-    "space": 4
+    "space": 4,
+    "ignore": [
+      "tests/*.js",
+      "example.js",
+      "Gruntfile.js"
+    ]
   },
   "nyc": {
     "exclude": [
