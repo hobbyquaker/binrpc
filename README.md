@@ -3,7 +3,7 @@ binrpc
 
 [![npm version](https://badge.fury.io/js/binrpc.svg)](https://badge.fury.io/js/binrpc) 
 [![npm downloads](https://img.shields.io/npm/dm/binrpc.svg)](https://www.npmjs.com/package/binrpc)
-[![Dependency Status](https://img.shields.io/gemnasium/hobbyquaker/binrpc.svg?maxAge=2592000)](https://gemnasium.com/github.com/hobbyquaker/binrpc)
+[![Dependencies Status](https://david-dm.org/hobbyquaker/binrpc/status.svg)](https://david-dm.org/hobbyquaker/binrpc)
 [![Coverage Status](https://coveralls.io/repos/github/hobbyquaker/binrpc/badge.svg?branch=master)](https://coveralls.io/github/hobbyquaker/binrpc?branch=master)
 [![Build Status](https://travis-ci.org/hobbyquaker/binrpc.svg?branch=master)](https://travis-ci.org/hobbyquaker/binrpc)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
