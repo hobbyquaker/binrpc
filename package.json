@@ -43,8 +43,6 @@
     "grunt-contrib-concat": "latest",
     "grunt-jsdoc-to-markdown": "latest",
     "grunt-shell": "latest",
-    "grunt-simple-mocha": "latest",
-    "grunt-xo": "latest",
     "mocha": "latest",
     "nyc": "latest",
     "should": "latest",
