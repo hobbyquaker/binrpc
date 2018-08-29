@@ -2,8 +2,7 @@ binrpc
 ======
 
 [![npm version](https://badge.fury.io/js/binrpc.svg)](https://badge.fury.io/js/binrpc) 
-[![npm downloads](https://img.shields.io/npm/dm/binrpc.svg)](https://www.npmjs.com/package/binrpc)
-[![Dependencies Status](https://david-dm.org/hobbyquaker/binrpc/status.svg)](https://david-dm.org/hobbyquaker/binrpc)
+[![Dependency Status](https://img.shields.io/gemnasium/hobbyquaker/binrpc.svg?maxAge=2592000)](https://gemnasium.com/github.com/hobbyquaker/binrpc)
 [![Coverage Status](https://coveralls.io/repos/github/hobbyquaker/binrpc/badge.svg?branch=master)](https://coveralls.io/github/hobbyquaker/binrpc?branch=master)
 [![Build Status](https://travis-ci.org/hobbyquaker/binrpc.svg?branch=master)](https://travis-ci.org/hobbyquaker/binrpc)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
@@ -89,15 +88,15 @@ For a full example on how to subscribe to CCU events see [example.js](example.js
 ## binrpc
 
 * [binrpc](#module_binrpc)
-    * [.createClient(options)](#module_binrpc.createClient) ⇒ <code>[Client](#Client)</code>
-    * [.createServer(options)](#module_binrpc.createServer) ⇒ <code>[Server](#Server)</code>
+    * [.createClient(options)](#module_binrpc.createClient) ⇒ [<code>Client</code>](#Client)
+    * [.createServer(options)](#module_binrpc.createServer) ⇒ [<code>Server</code>](#Server)
 
 <a name="module_binrpc.createClient"></a>
 
-### binrpc.createClient(options) ⇒ <code>[Client](#Client)</code>
+### binrpc.createClient(options) ⇒ [<code>Client</code>](#Client)
 RPC client factory
 
-**Kind**: static method of <code>[binrpc](#module_binrpc)</code>  
+**Kind**: static method of [<code>binrpc</code>](#module_binrpc)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -105,14 +104,15 @@ RPC client factory
 | options.host | <code>string</code> |  | the hostname or ip address to connect to |
 | options.port | <code>number</code> |  | the port to connect to |
 | [options.reconnectTimeout] | <code>number</code> | <code>2500</code> | wait milliseconds until trying to reconnect after the socket was closed |
+| [options.responseTimeout] | <code>number</code> | <code>5000</code> | wait milliseconds for method call response |
 | [options.queueMaxLength] | <code>number</code> | <code>15</code> | maximum number of methodCalls that are allowed in the queue |
 
 <a name="module_binrpc.createServer"></a>
 
-### binrpc.createServer(options) ⇒ <code>[Server](#Server)</code>
+### binrpc.createServer(options) ⇒ [<code>Server</code>](#Server)
 RPC server factory
 
-**Kind**: static method of <code>[binrpc](#module_binrpc)</code>  
+**Kind**: static method of [<code>binrpc</code>](#module_binrpc)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -129,7 +129,8 @@ RPC server factory
     * [.queueMaxLength](#module_client+queueMaxLength) : <code>number</code>
     * [.queueRetryTimeout](#module_client+queueRetryTimeout) : <code>number</code>
     * [.pending](#module_client+pending) : <code>boolean</code>
-    * [.connect(reconnect)](#module_client+connect)
+    * [.responseTimeout](#module_client+responseTimeout) : <code>number</code>
+    * [.connect()](#module_client+connect)
     * [.queuePush(buf, cb)](#module_client+queuePush)
     * [.queueShift()](#module_client+queueShift)
     * [.methodCall(method, params, callback)](#module_client+methodCall)
@@ -139,42 +140,43 @@ RPC server factory
 ### client.queue : <code>Array</code>
 The request queue. Array elements must be objects with the properties buffer and callback
 
-**Kind**: instance property of <code>[client](#module_client)</code>  
+**Kind**: instance property of [<code>client</code>](#module_client)  
 <a name="module_client+queueMaxLength"></a>
 
 ### client.queueMaxLength : <code>number</code>
 Maximum queue length. If queue length is greater than this a methodCall will return error 'You are sending too fast'
 
-**Kind**: instance property of <code>[client](#module_client)</code>  
+**Kind**: instance property of [<code>client</code>](#module_client)  
 <a name="module_client+queueRetryTimeout"></a>
 
 ### client.queueRetryTimeout : <code>number</code>
 Time in milliseconds. How long to wait for retry if a request is pending
 
-**Kind**: instance property of <code>[client](#module_client)</code>  
+**Kind**: instance property of [<code>client</code>](#module_client)  
 <a name="module_client+pending"></a>
 
 ### client.pending : <code>boolean</code>
 Indicates if there is a request waiting for its response
 
-**Kind**: instance property of <code>[client](#module_client)</code>  
+**Kind**: instance property of [<code>client</code>](#module_client)  
+<a name="module_client+responseTimeout"></a>
+
+### client.responseTimeout : <code>number</code>
+Time in milliseconds. How long to wait for a method call response
+
+**Kind**: instance property of [<code>client</code>](#module_client)  
 <a name="module_client+connect"></a>
 
-### client.connect(reconnect)
+### client.connect()
 connect
 
-**Kind**: instance method of <code>[client](#module_client)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| reconnect | <code>boolean</code> | optional - defaults to false. Set to true if this is a reconnect |
-
+**Kind**: instance method of [<code>client</code>](#module_client)  
 <a name="module_client+queuePush"></a>
 
 ### client.queuePush(buf, cb)
 Push request to the queue
 
-**Kind**: instance method of <code>[client](#module_client)</code>  
+**Kind**: instance method of [<code>client</code>](#module_client)  
 
 | Param | Type |
 | --- | --- |
@@ -186,13 +188,13 @@ Push request to the queue
 ### client.queueShift()
 Shift request from the queue and write it to the socket.
 
-**Kind**: instance method of <code>[client](#module_client)</code>  
+**Kind**: instance method of [<code>client</code>](#module_client)  
 <a name="module_client+methodCall"></a>
 
 ### client.methodCall(method, params, callback)
 methodCall
 
-**Kind**: instance method of <code>[client](#module_client)</code>  
+**Kind**: instance method of [<code>client</code>](#module_client)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -231,7 +233,7 @@ methodCall
 ### protocol.encodeRequest(method, data) ⇒ <code>Buffer</code>
 encode requests
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -243,7 +245,7 @@ encode requests
 ### protocol.encodeResponse(data) ⇒ <code>Buffer</code>
 encode response
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -254,7 +256,7 @@ encode response
 ### protocol.encodeData(obj) ⇒ <code>Buffer</code>
 encode data
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -265,7 +267,7 @@ encode data
 ### protocol.encodeStruct(obj) ⇒ <code>Buffer</code>
 encode struct
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -276,7 +278,7 @@ encode struct
 ### protocol.encodeStructKey(str) ⇒ <code>Buffer</code>
 encode struct key
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -287,7 +289,7 @@ encode struct key
 ### protocol.encodeArray(arr) ⇒ <code>Buffer</code>
 encode array
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -298,7 +300,7 @@ encode array
 ### protocol.encodeString(str) ⇒ <code>Buffer</code>
 encode string
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -309,7 +311,7 @@ encode string
 ### protocol.encodeBool(b) ⇒ <code>Buffer</code>
 encode bool
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -320,7 +322,7 @@ encode bool
 ### protocol.encodeInteger(i) ⇒ <code>Buffer</code>
 encode integer
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -331,7 +333,7 @@ encode integer
 ### protocol.encodeDouble(d) ⇒ <code>Buffer</code>
 encode double
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -342,7 +344,7 @@ encode double
 ### protocol.decodeDouble(elem) ⇒ <code>object</code>
 decode double
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 **Returns**: <code>object</code> - properties content and rest  
 
 | Param | Type | Description |
@@ -354,7 +356,7 @@ decode double
 ### protocol.decodeString(elem) ⇒ <code>object</code>
 decode string
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 **Returns**: <code>object</code> - properties content and rest  
 
 | Param | Type | Description |
@@ -366,7 +368,7 @@ decode string
 ### protocol.decodeBool(elem) ⇒ <code>object</code>
 decode double
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 **Returns**: <code>object</code> - properties content and rest  
 
 | Param | Type | Description |
@@ -378,7 +380,7 @@ decode double
 ### protocol.decodeInteger(elem) ⇒ <code>object</code>
 decode integer
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 **Returns**: <code>object</code> - properties content and rest  
 
 | Param | Type | Description |
@@ -390,7 +392,7 @@ decode integer
 ### protocol.decodeArray(elem) ⇒ <code>object</code>
 decode array
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 **Returns**: <code>object</code> - properties content and rest  
 
 | Param | Type | Description |
@@ -402,7 +404,7 @@ decode array
 ### protocol.decodeStruct(elem) ⇒ <code>object</code>
 decode struct
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 **Returns**: <code>object</code> - properties content and rest  
 
 | Param | Type | Description |
@@ -414,7 +416,7 @@ decode struct
 ### protocol.decodeData(data) ⇒ <code>\*</code>
 decodes binary data
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type |
 | --- | --- |
@@ -425,7 +427,7 @@ decodes binary data
 ### protocol.decodeResponse(data) ⇒ <code>\*</code>
 decode response
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -436,7 +438,7 @@ decode response
 ### protocol.decodeStrangeRequest(data) ⇒ <code>Array</code>
 decode "strange" request
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -447,7 +449,7 @@ decode "strange" request
 ### protocol.decodeRequest(data) ⇒ <code>\*</code>
 decode request
 
-**Kind**: static method of <code>[protocol](#module_protocol)</code>  
+**Kind**: static method of [<code>protocol</code>](#module_protocol)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -470,6 +472,7 @@ decode request
 | options.host | <code>string</code> |  | the hostname or ip address to connect to |
 | options.port | <code>number</code> |  | the port to connect to |
 | [options.reconnectTimeout] | <code>number</code> | <code>2500</code> | wait milliseconds until trying to reconnect after the socket was closed |
+| [options.responseTimeout] | <code>number</code> | <code>5000</code> | wait milliseconds for method call response |
 | [options.queueMaxLength] | <code>number</code> | <code>15</code> | maximum number of methodCalls that are allowed in the queue |
 
 <a name="Protocol"></a>
@@ -501,7 +504,7 @@ decode request
 ### "[method]" (error, params, callback)
 Fires when RPC method call is received
 
-**Kind**: event emitted by <code>[Server](#Server)</code>  
+**Kind**: event emitted by [<code>Server</code>](#Server)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -515,7 +518,7 @@ Fires when RPC method call is received
 Fires if a RPC method call has no event handler.
 RPC response is always an empty string.
 
-**Kind**: event emitted by <code>[Server](#Server)</code>  
+**Kind**: event emitted by [<code>Server</code>](#Server)  
 
 | Param | Type |
 | --- | --- |
@@ -527,7 +530,7 @@ RPC response is always an empty string.
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2018 Sebastian 'hobbyquaker' Raff and Contributors
+Copyright (c) 2014-2017 Sebastian 'hobbyquaker' Raff
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
