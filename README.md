@@ -89,7 +89,7 @@ For a full example on how to subscribe to CCU events see [example.js](example.js
 
 * [binrpc](#module_binrpc)
     * [.createClient(options)](#module_binrpc.createClient) ⇒ [<code>Client</code>](#Client)
-    * [.createServer(options)](#module_binrpc.createServer) ⇒ [<code>Server</code>](#Server)
+    * [.createServer(options, onListening)](#module_binrpc.createServer) ⇒ [<code>Server</code>](#Server)
 
 <a name="module_binrpc.createClient"></a>
 
@@ -109,7 +109,7 @@ RPC client factory
 
 <a name="module_binrpc.createServer"></a>
 
-### binrpc.createServer(options) ⇒ [<code>Server</code>](#Server)
+### binrpc.createServer(options, onListening) ⇒ [<code>Server</code>](#Server)
 RPC server factory
 
 **Kind**: static method of [<code>binrpc</code>](#module_binrpc)  
@@ -119,6 +119,7 @@ RPC server factory
 | options | <code>object</code> |  |
 | options.host | <code>string</code> | ip address on which the server should listen |
 | options.port | <code>number</code> | port on which the server should listen |
+| onListening | <code>function</code> | function to be invoked in the server's `listening` callback |
 
 <a name="module_client"></a>
 
@@ -485,19 +486,20 @@ decode request
 **Kind**: global class  
 
 * [Server](#Server)
-    * [new Server(options)](#new_Server_new)
+    * [new Server(options, onListening)](#new_Server_new)
     * ["[method]" (error, params, callback)](#Server+event_[method])
     * ["NotFound" (method, params)](#Server+event_NotFound)
 
 <a name="new_Server_new"></a>
 
-### new Server(options)
+### new Server(options, onListening)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>object</code> |  |
 | options.host | <code>string</code> | ip address on which the server should listen |
 | options.port | <code>number</code> | port on which the server should listen |
+| onListening | <code>function</code> | function to be invoked in the server's `listening` callback |
 
 <a name="Server+event_[method]"></a>
 
