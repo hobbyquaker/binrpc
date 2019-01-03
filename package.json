@@ -1,5 +1,5 @@
 {
-  "version": "3.2.2",
+  "version": "3.3.0",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
@@ -7,7 +7,8 @@
   "contributors": [
     "Ingo 'Apollon77' Fischer (https://github.com/Apollon77)",
     "Mik- https://github.com/Mik-",
-    "Vegetto https://github.com/angelnu"
+    "Vegetto https://github.com/angelnu",
+    "Benjamin Kroeger https://github.com/benkroeger"
   ],
   "keywords": [
     "HomeMatic",
