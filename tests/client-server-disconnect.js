@@ -5,6 +5,16 @@ require('should');
 
 describe('client server disconnect', function () {
 
+    it('should open a server and invoke callback when listening', function(done) {
+        var myServer;
+        var options = { host: '127.0.0.1', port: '2034' };
+        function onListening() {
+            var server = myServer.server;
+            server.should.have.property('listening', true);
+            server.close(done);
+        }
+        myServer = rpc.createServer(options, onListening);
+    });
     it('should time out', function (done) {
         this.timeout(60000);
         var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2039});
