@@ -76,4 +76,17 @@ describe('client server disconnect', function () {
         }, 5000);
 
     });
+
+    it('should handle socket errors after a writeEnd', function (done) {
+        this.timeout(60000);
+        var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2041});
+        var rpcClient = rpc.createClient({host: '127.0.0.1', port: 2041});
+        rpcServer.on('ok', function (err, params, callback) {
+            callback(null, '');
+        });
+        rpcClient.methodCall('ok', [''], function (err, res) {
+            rpcClient.socket.emit('error');
+            done();
+        });
+    });
 });
