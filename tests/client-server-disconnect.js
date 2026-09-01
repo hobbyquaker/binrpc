@@ -1,90 +1,84 @@
-var rpc = require('./../lib/binrpc.js');
+const {describe, it} = require('node:test');
+const assert = require('node:assert');
 
-require('should');
+const rpc = require('./../lib/binrpc.js');
 
-
-describe('client server disconnect', function () {
-
-    it('should open a server and invoke callback when listening', function(done) {
-        var myServer;
-        var options = { host: '127.0.0.1', port: '2034' };
+describe('client server disconnect', () => {
+    it('should open a server and invoke callback when listening', (_t, done) => {
+        let myServer;
+        const options = {host: '127.0.0.1', port: '2034'};
         function onListening() {
-            var server = myServer.server;
-            server.should.have.property('listening', true);
+            const server = myServer.server;
+            assert.strictEqual(server.listening, true);
             server.close(done);
         }
         myServer = rpc.createServer(options, onListening);
     });
-    it('should time out', function (done) {
-        this.timeout(60000);
-        var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2039});
-        var rpcClient = rpc.createClient({host: '127.0.0.1', port: 2039});
-        rpcServer.on('veryslow', function (err, params, callback) {
-            setTimeout(function () {
+
+    it('should time out', {timeout: 60000}, (_t, done) => {
+        const rpcServer = rpc.createServer({host: '127.0.0.1', port: 2039});
+        const rpcClient = rpc.createClient({host: '127.0.0.1', port: 2039});
+        rpcServer.on('veryslow', (err, params, callback) => {
+            setTimeout(() => {
                 callback(null, '');
             }, 10000);
         });
-        rpcClient.methodCall('veryslow', [''], function (err, res) {
-            err.toString().should.equal('Error: response timeout');
-            done(err ? undefined : new Error(''));
+        rpcClient.methodCall('veryslow', [''], (err) => {
+            assert.strictEqual(err.toString(), 'Error: response timeout');
+            done(err ? undefined : new Error('no Error was thrown'));
         });
     });
 
-
-    it('should do nothing when filling up the queue without callback', function () {
-        this.timeout(60000);
-        var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2040});
-        var rpcClient = rpc.createClient({host: '127.0.0.1', port: 2040});
-        rpcServer.on('slow', function (err, params, callback) {
-            setTimeout(function () {
+    it('should do nothing when filling up the queue without callback', {timeout: 60000}, () => {
+        const rpcServer = rpc.createServer({host: '127.0.0.1', port: 2040});
+        const rpcClient = rpc.createClient({host: '127.0.0.1', port: 2040});
+        rpcServer.on('slow', (err, params, callback) => {
+            setTimeout(() => {
                 callback(null, '');
             }, 2000);
         });
-        for (var i = 0; i < 110; i++) {
+        for (let i = 0; i < 110; i++) {
             rpcClient.methodCall('slow', ['']);
         }
     });
 
-    it('should reconnect when the server is back', function (done) {
-        this.timeout(30000);
-        var rpcServer2 = rpc.createServer({host: '127.0.0.1', port: 2038});
-        var rpcClient2 = rpc.createClient({host: '127.0.0.1', port: 2038});
+    it('should reconnect when the server is back', {timeout: 30000}, (_t, done) => {
+        let rpcServer2 = rpc.createServer({host: '127.0.0.1', port: 2038});
+        const rpcClient2 = rpc.createClient({host: '127.0.0.1', port: 2038});
 
-        setTimeout(function () {
+        setTimeout(() => {
             rpcClient2.socket.end();
             rpcClient2.socket.destroy();
             rpcServer2.server.close();
             rpcServer2.server.unref();
 
-            setTimeout(function () {
+            setTimeout(() => {
                 rpcServer2 = rpc.createServer({host: '127.0.0.1', port: 2038});
-                rpcServer2.on('back', function (err, params, callback) {
+                rpcServer2.on('back', (err, params, callback) => {
                     callback(null, 'isBack');
                 });
-                setTimeout(function () {
-                    rpcClient2.methodCall('back', [''], function (err, res) {
+                setTimeout(() => {
+                    rpcClient2.methodCall('back', [''], (err, res) => {
                         if (err) {
                             done(err);
                         } else if (res === 'isBack') {
                             done();
                         } else {
-                            done(new Error(''));
+                            done(new Error('unexpected response ' + res));
                         }
                     });
                 }, 2750);
             }, 5000);
         }, 5000);
-
     });
 
-    it('should handle socket errors after a writeEnd', function (done) {
-        this.timeout(60000);
-        var rpcServer = rpc.createServer({host: '127.0.0.1', port: 2041});
-        var rpcClient = rpc.createClient({host: '127.0.0.1', port: 2041});
-        rpcServer.on('ok', function (err, params, callback) {
+    it('should handle socket errors after a writeEnd', {timeout: 60000}, (_t, done) => {
+        const rpcServer = rpc.createServer({host: '127.0.0.1', port: 2041});
+        const rpcClient = rpc.createClient({host: '127.0.0.1', port: 2041});
+        rpcServer.on('ok', (err, params, callback) => {
             callback(null, '');
         });
-        rpcClient.methodCall('ok', [''], function (err, res) {
+        rpcClient.methodCall('ok', [''], () => {
             rpcClient.socket.emit('error');
             done();
         });

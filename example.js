@@ -11,9 +11,8 @@ var rpc = require('./lib/binrpc.js');
 var thisHost = '172.16.23.127';
 var ccuHost = '172.16.23.130';
 
-
-var rpcServer = rpc.createServer({host: thisHost, port: '2031'});    // Host running rpc server
-var rpcClient = rpc.createClient({host: ccuHost, port: '2001'});      // CCU
+var rpcServer = rpc.createServer({host: thisHost, port: '2031'}); // Host running rpc server
+var rpcClient = rpc.createClient({host: ccuHost, port: '2001'}); // CCU
 
 rpcServer.on('system.listMethods', function (err, params, callback) {
     console.log(' <  system.listMethods');
@@ -34,7 +33,7 @@ rpcServer.on('system.multicall', function (err, params, callback) {
     var response = [];
     params[0].forEach(function (call) {
         console.log(' <', call.methodName, JSON.stringify(call.params));
-         response.push('');
+        response.push('');
     });
     callback(null, '');
 });
@@ -54,7 +53,6 @@ function subscribe() {
 process.on('SIGINT', function () {
     unsubscribe();
 });
-
 
 /**
  * Tell the CCU that we no longer want to receive events

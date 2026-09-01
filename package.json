@@ -1,5 +1,5 @@
 {
-  "version": "3.3.2",
+  "version": "4.0.0",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
@@ -8,7 +8,8 @@
     "Ingo 'Apollon77' Fischer (https://github.com/Apollon77)",
     "Mik- https://github.com/Mik-",
     "Vegetto https://github.com/angelnu",
-    "Benjamin Kroeger https://github.com/benkroeger"
+    "Benjamin Kroeger https://github.com/benkroeger",
+    "Thomas Wendt https://github.com/twendt"
   ],
   "keywords": [
     "HomeMatic",
@@ -22,9 +23,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hobbyquaker/binrpc.git"
+    "url": "git+https://github.com/hobbyquaker/binrpc.git"
   },
   "main": "./lib/binrpc.js",
+  "files": [
+    "lib/"
+  ],
   "dependencies": {
     "binary": "^0.3.0",
     "put": "0.0.6"
@@ -33,42 +37,25 @@
     "url": "https://github.com/hobbyquaker/binrpc/issues"
   },
   "scripts": {
-    "test": "mocha --exit tests/*"
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write . && eslint --fix .",
+    "test": "node --test --test-force-exit \"tests/*.js\"",
+    "test:watch": "node --test --watch \"tests/*.js\"",
+    "docs": "jsdoc2md lib/*.js > doc/api.md && cat doc/README.header.md doc/api.md doc/README.footer.md > README.md"
   },
   "license": "MIT",
   "devDependencies": {
-    "camo-purge": "latest",
-    "coveralls": "latest",
-    "grunt": "latest",
-    "grunt-cli": "latest",
-    "grunt-contrib-concat": "latest",
-    "grunt-jsdoc-to-markdown": "latest",
-    "grunt-shell": "latest",
-    "mocha": "latest",
-    "nyc": "latest",
-    "should": "latest",
-    "xo": "latest"
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "globals": "^16.0.0",
+    "jsdoc-to-markdown": "^9.0.0",
+    "prettier": "^3.0.0"
   },
   "directories": {
     "test": "tests"
   },
-  "xo": {
-    "esnext": false,
-    "space": 4,
-    "ignore": [
-      "tests/*.js",
-      "example.js",
-      "Gruntfile.js"
-    ]
-  },
-  "nyc": {
-    "exclude": [
-      "tests/*.js",
-      "example.js",
-      "Gruntfile.js"
-    ]
-  },
   "engines": {
-    "node": ">4.0.0"
+    "node": ">=20"
   }
 }
