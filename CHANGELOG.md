@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.1.0 / 2026-09-01
+
+- Zero runtime dependencies: the unmaintained `binary` and `put` packages are replaced with plain
+  `Buffer` reads/writes. The wire format is unchanged — verified byte-identical against 4.0.0
+  with 20000 fuzzed requests/responses on top of the pinned hex fixtures in the protocol tests.
+- More robust decoding of malformed/truncated frames: where the old parser could throw (and take
+  the process down from a socket data handler), the decoder now bails out cleanly. Well-formed
+  data decodes exactly as before.
+- `npm audit`: 0 vulnerabilities.
+
 ## 4.0.0 / 2026-09-01
 
 - **Breaking:** requires Node.js >= 20. The library itself is unchanged and stays CommonJS —

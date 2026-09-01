@@ -5,8 +5,6 @@
 <dd></dd>
 <dt><a href="#module_client">client</a></dt>
 <dd></dd>
-<dt><a href="#module_protocol">protocol</a></dt>
-<dd></dd>
 <dt><a href="#module_server">server</a></dt>
 <dd></dd>
 </dl>
@@ -142,259 +140,6 @@ methodCall
 | params | <code>Array</code> |  |
 | callback | <code>function</code> | optional - if omitted an empty string will be send as response |
 
-<a name="module_protocol"></a>
-
-## protocol
-
-* [protocol](#module_protocol)
-    * [.encodeRequest(method, data)](#module_protocol.encodeRequest) ⇒ <code>Buffer</code>
-    * [.encodeResponse(data)](#module_protocol.encodeResponse) ⇒ <code>Buffer</code>
-    * [.encodeData(obj)](#module_protocol.encodeData) ⇒ <code>Buffer</code>
-    * [.encodeStruct(obj)](#module_protocol.encodeStruct) ⇒ <code>Buffer</code>
-    * [.encodeStructKey(str)](#module_protocol.encodeStructKey) ⇒ <code>Buffer</code>
-    * [.encodeArray(arr)](#module_protocol.encodeArray) ⇒ <code>Buffer</code>
-    * [.encodeString(str)](#module_protocol.encodeString) ⇒ <code>Buffer</code>
-    * [.encodeBool(b)](#module_protocol.encodeBool) ⇒ <code>Buffer</code>
-    * [.encodeInteger(i)](#module_protocol.encodeInteger) ⇒ <code>Buffer</code>
-    * [.encodeDouble(d)](#module_protocol.encodeDouble) ⇒ <code>Buffer</code>
-    * [.decodeDouble(elem)](#module_protocol.decodeDouble) ⇒ <code>object</code>
-    * [.decodeString(elem)](#module_protocol.decodeString) ⇒ <code>object</code>
-    * [.decodeBool(elem)](#module_protocol.decodeBool) ⇒ <code>object</code>
-    * [.decodeInteger(elem)](#module_protocol.decodeInteger) ⇒ <code>object</code>
-    * [.decodeArray(elem)](#module_protocol.decodeArray) ⇒ <code>object</code>
-    * [.decodeStruct(elem)](#module_protocol.decodeStruct) ⇒ <code>object</code>
-    * [.decodeData(data)](#module_protocol.decodeData) ⇒ <code>\*</code>
-    * [.decodeResponse(data)](#module_protocol.decodeResponse) ⇒ <code>\*</code>
-    * [.decodeStrangeRequest(data)](#module_protocol.decodeStrangeRequest) ⇒ <code>Array</code>
-    * [.decodeRequest(data)](#module_protocol.decodeRequest) ⇒ <code>\*</code>
-
-<a name="module_protocol.encodeRequest"></a>
-
-### protocol.encodeRequest(method, data) ⇒ <code>Buffer</code>
-encode requests
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>string</code> | throws error if not type string or if string is empty |
-| data | <code>\*</code> | optional - defaults to an empty array |
-
-<a name="module_protocol.encodeResponse"></a>
-
-### protocol.encodeResponse(data) ⇒ <code>Buffer</code>
-encode response
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>\*</code> | optional - defaults to empty string |
-
-<a name="module_protocol.encodeData"></a>
-
-### protocol.encodeData(obj) ⇒ <code>Buffer</code>
-encode data
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| obj | <code>\*</code> | throws TypeError if obj is undefined or null |
-
-<a name="module_protocol.encodeStruct"></a>
-
-### protocol.encodeStruct(obj) ⇒ <code>Buffer</code>
-encode struct
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| obj | <code>object</code> | throws error if not of type object |
-
-<a name="module_protocol.encodeStructKey"></a>
-
-### protocol.encodeStructKey(str) ⇒ <code>Buffer</code>
-encode struct key
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | throws error if not of type string |
-
-<a name="module_protocol.encodeArray"></a>
-
-### protocol.encodeArray(arr) ⇒ <code>Buffer</code>
-encode array
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| arr | <code>array</code> | throws error if not instance of Array |
-
-<a name="module_protocol.encodeString"></a>
-
-### protocol.encodeString(str) ⇒ <code>Buffer</code>
-encode string
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | throws error if not of type string |
-
-<a name="module_protocol.encodeBool"></a>
-
-### protocol.encodeBool(b) ⇒ <code>Buffer</code>
-encode bool
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| b | <code>\*</code> | any type |
-
-<a name="module_protocol.encodeInteger"></a>
-
-### protocol.encodeInteger(i) ⇒ <code>Buffer</code>
-encode integer
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| i | <code>number</code> | throws error if not a number or if out of range (min=-2147483648 max=2147483647) |
-
-<a name="module_protocol.encodeDouble"></a>
-
-### protocol.encodeDouble(d) ⇒ <code>Buffer</code>
-encode double
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| d | <code>number</code> | throws error if not a number |
-
-<a name="module_protocol.decodeDouble"></a>
-
-### protocol.decodeDouble(elem) ⇒ <code>object</code>
-decode double
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-**Returns**: <code>object</code> - properties content and rest  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <8 |
-
-<a name="module_protocol.decodeString"></a>
-
-### protocol.decodeString(elem) ⇒ <code>object</code>
-decode string
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-**Returns**: <code>object</code> - properties content and rest  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
-
-<a name="module_protocol.decodeBool"></a>
-
-### protocol.decodeBool(elem) ⇒ <code>object</code>
-decode double
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-**Returns**: <code>object</code> - properties content and rest  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <8 |
-
-<a name="module_protocol.decodeInteger"></a>
-
-### protocol.decodeInteger(elem) ⇒ <code>object</code>
-decode integer
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-**Returns**: <code>object</code> - properties content and rest  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
-
-<a name="module_protocol.decodeArray"></a>
-
-### protocol.decodeArray(elem) ⇒ <code>object</code>
-decode array
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-**Returns**: <code>object</code> - properties content and rest  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
-
-<a name="module_protocol.decodeStruct"></a>
-
-### protocol.decodeStruct(elem) ⇒ <code>object</code>
-decode struct
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-**Returns**: <code>object</code> - properties content and rest  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
-
-<a name="module_protocol.decodeData"></a>
-
-### protocol.decodeData(data) ⇒ <code>\*</code>
-decodes binary data
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type |
-| --- | --- |
-| data | <code>Buffer</code> | 
-
-<a name="module_protocol.decodeResponse"></a>
-
-### protocol.decodeResponse(data) ⇒ <code>\*</code>
-decode response
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Buffer</code> | throws TypeError if data is no instance of Buffer |
-
-<a name="module_protocol.decodeStrangeRequest"></a>
-
-### protocol.decodeStrangeRequest(data) ⇒ <code>Array</code>
-decode "strange" request
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Buffer</code> | throws TypeError if data is no instance of Buffer |
-
-<a name="module_protocol.decodeRequest"></a>
-
-### protocol.decodeRequest(data) ⇒ <code>\*</code>
-decode request
-
-**Kind**: static method of [<code>protocol</code>](#module_protocol)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Buffer</code> | throws TypeError if not instance of Buffer |
-
 <a name="module_server"></a>
 
 ## server
@@ -419,6 +164,256 @@ decode request
 
 ## Protocol
 **Kind**: global class  
+
+* [Protocol](#Protocol)
+    * [.encodeRequest(method, data)](#Protocol.encodeRequest) ⇒ <code>Buffer</code>
+    * [.encodeResponse(data)](#Protocol.encodeResponse) ⇒ <code>Buffer</code>
+    * [.encodeData(obj)](#Protocol.encodeData) ⇒ <code>Buffer</code>
+    * [.encodeStruct(obj)](#Protocol.encodeStruct) ⇒ <code>Buffer</code>
+    * [.encodeStructKey(str)](#Protocol.encodeStructKey) ⇒ <code>Buffer</code>
+    * [.encodeArray(arr)](#Protocol.encodeArray) ⇒ <code>Buffer</code>
+    * [.encodeString(str)](#Protocol.encodeString) ⇒ <code>Buffer</code>
+    * [.encodeBool(b)](#Protocol.encodeBool) ⇒ <code>Buffer</code>
+    * [.encodeInteger(i)](#Protocol.encodeInteger) ⇒ <code>Buffer</code>
+    * [.encodeDouble(d)](#Protocol.encodeDouble) ⇒ <code>Buffer</code>
+    * [.decodeDouble(elem)](#Protocol.decodeDouble) ⇒ <code>object</code>
+    * [.decodeString(elem)](#Protocol.decodeString) ⇒ <code>object</code>
+    * [.decodeBool(elem)](#Protocol.decodeBool) ⇒ <code>object</code>
+    * [.decodeInteger(elem)](#Protocol.decodeInteger) ⇒ <code>object</code>
+    * [.decodeArray(elem)](#Protocol.decodeArray) ⇒ <code>object</code>
+    * [.decodeStruct(elem)](#Protocol.decodeStruct) ⇒ <code>object</code>
+    * [.decodeData(data)](#Protocol.decodeData) ⇒ <code>\*</code>
+    * [.decodeResponse(data)](#Protocol.decodeResponse) ⇒ <code>\*</code>
+    * [.decodeStrangeRequest(data)](#Protocol.decodeStrangeRequest) ⇒ <code>Array</code>
+    * [.decodeRequest(data)](#Protocol.decodeRequest) ⇒ <code>\*</code>
+
+<a name="Protocol.encodeRequest"></a>
+
+### Protocol.encodeRequest(method, data) ⇒ <code>Buffer</code>
+encode requests
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>string</code> | throws error if not type string or if string is empty |
+| data | <code>\*</code> | optional - defaults to an empty array |
+
+<a name="Protocol.encodeResponse"></a>
+
+### Protocol.encodeResponse(data) ⇒ <code>Buffer</code>
+encode response
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>\*</code> | optional - defaults to empty string |
+
+<a name="Protocol.encodeData"></a>
+
+### Protocol.encodeData(obj) ⇒ <code>Buffer</code>
+encode data
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>\*</code> | throws TypeError if obj is undefined or null |
+
+<a name="Protocol.encodeStruct"></a>
+
+### Protocol.encodeStruct(obj) ⇒ <code>Buffer</code>
+encode struct
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>object</code> | throws error if not of type object |
+
+<a name="Protocol.encodeStructKey"></a>
+
+### Protocol.encodeStructKey(str) ⇒ <code>Buffer</code>
+encode struct key
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | throws error if not of type string |
+
+<a name="Protocol.encodeArray"></a>
+
+### Protocol.encodeArray(arr) ⇒ <code>Buffer</code>
+encode array
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arr | <code>array</code> | throws error if not instance of Array |
+
+<a name="Protocol.encodeString"></a>
+
+### Protocol.encodeString(str) ⇒ <code>Buffer</code>
+encode string
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | throws error if not of type string |
+
+<a name="Protocol.encodeBool"></a>
+
+### Protocol.encodeBool(b) ⇒ <code>Buffer</code>
+encode bool
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| b | <code>\*</code> | any type |
+
+<a name="Protocol.encodeInteger"></a>
+
+### Protocol.encodeInteger(i) ⇒ <code>Buffer</code>
+encode integer
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| i | <code>number</code> | throws error if not a number or if out of range (min=-2147483648 max=2147483647) |
+
+<a name="Protocol.encodeDouble"></a>
+
+### Protocol.encodeDouble(d) ⇒ <code>Buffer</code>
+encode double
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| d | <code>number</code> | throws error if not a number |
+
+<a name="Protocol.decodeDouble"></a>
+
+### Protocol.decodeDouble(elem) ⇒ <code>object</code>
+decode double
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+**Returns**: <code>object</code> - properties content and rest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <8 |
+
+<a name="Protocol.decodeString"></a>
+
+### Protocol.decodeString(elem) ⇒ <code>object</code>
+decode string
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+**Returns**: <code>object</code> - properties content and rest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
+
+<a name="Protocol.decodeBool"></a>
+
+### Protocol.decodeBool(elem) ⇒ <code>object</code>
+decode bool
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+**Returns**: <code>object</code> - properties content and rest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <1 |
+
+<a name="Protocol.decodeInteger"></a>
+
+### Protocol.decodeInteger(elem) ⇒ <code>object</code>
+decode integer
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+**Returns**: <code>object</code> - properties content and rest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
+
+<a name="Protocol.decodeArray"></a>
+
+### Protocol.decodeArray(elem) ⇒ <code>object</code>
+decode array
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+**Returns**: <code>object</code> - properties content and rest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
+
+<a name="Protocol.decodeStruct"></a>
+
+### Protocol.decodeStruct(elem) ⇒ <code>object</code>
+decode struct
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+**Returns**: <code>object</code> - properties content and rest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Buffer</code> | throws error if not an instance of Buffer or if length <4 |
+
+<a name="Protocol.decodeData"></a>
+
+### Protocol.decodeData(data) ⇒ <code>\*</code>
+decodes binary data
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type |
+| --- | --- |
+| data | <code>Buffer</code> | 
+
+<a name="Protocol.decodeResponse"></a>
+
+### Protocol.decodeResponse(data) ⇒ <code>\*</code>
+decode response
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Buffer</code> | throws TypeError if data is no instance of Buffer |
+
+<a name="Protocol.decodeStrangeRequest"></a>
+
+### Protocol.decodeStrangeRequest(data) ⇒ <code>Array</code>
+decode "strange" request
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Buffer</code> | throws TypeError if data is no instance of Buffer |
+
+<a name="Protocol.decodeRequest"></a>
+
+### Protocol.decodeRequest(data) ⇒ <code>\*</code>
+decode request
+
+**Kind**: static method of [<code>Protocol</code>](#Protocol)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Buffer</code> | throws TypeError if not instance of Buffer |
+
 <a name="Server"></a>
 
 ## Server

@@ -23,14 +23,16 @@ No library changes, stays CommonJS, drop-in for 3.x on Node.js >= 20. See
   provenance) and GitHub releases generated from the CHANGELOG.
 - npm package ships only `lib/`.
 
-## 4.1.0 — drop the ancient runtime dependencies
+## 4.1.0 — drop the ancient runtime dependencies (done)
 
 Additive only, same wire bytes (the hex fixtures in `tests/protocol.js` must not change).
 
-- [ ] Replace `binary` (unmaintained since 2013, pulls in `chainsaw`/`traverse`) and `put`
+- [x] Replace `binary` (unmaintained since 2013, pulls in `chainsaw`/`traverse`) and `put`
       (0.0.6) with plain `Buffer` reads/writes (`readUInt32BE`, `writeUInt32BE`, …). Zero runtime
-      dependencies afterwards.
-- [ ] `npm audit` clean.
+      dependencies afterwards. Verified byte-identical against 4.0.0 with 20000 fuzzed
+      requests/responses; malformed/truncated frames now bail out cleanly instead of throwing
+      from a socket data handler.
+- [x] `npm audit` clean.
 
 ## 4.x — hardening and coverage (additive)
 

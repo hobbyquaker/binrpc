@@ -1,5 +1,5 @@
 {
-  "version": "4.0.0",
+  "version": "4.1.0",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
@@ -29,10 +29,6 @@
   "files": [
     "lib/"
   ],
-  "dependencies": {
-    "binary": "^0.3.0",
-    "put": "0.0.6"
-  },
   "bugs": {
     "url": "https://github.com/hobbyquaker/binrpc/issues"
   },
