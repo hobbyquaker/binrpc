@@ -20,3 +20,6 @@ jobs:
       - run: npm ci
       - run: npm run lint --if-present
       - run: npm test
+      - run: npm run test:types
+      - run: npm run test:coverage
+        if: matrix.node == 24

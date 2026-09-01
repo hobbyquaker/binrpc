@@ -1,5 +1,5 @@
 {
-  "version": "4.1.0",
+  "version": "4.2.0",
   "name": "binrpc",
   "description": "HomeMatic binary RPC protocol - xmlrpc_bin://",
   "homepage": "https://github.com/hobbyquaker/binrpc",
@@ -26,8 +26,10 @@
     "url": "git+https://github.com/hobbyquaker/binrpc.git"
   },
   "main": "./lib/binrpc.js",
+  "types": "./index.d.ts",
   "files": [
-    "lib/"
+    "lib/",
+    "index.d.ts"
   ],
   "bugs": {
     "url": "https://github.com/hobbyquaker/binrpc/issues"
@@ -36,17 +38,21 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write . && eslint --fix .",
     "test": "node --test --test-force-exit tests/*.js",
+    "test:coverage": "node --test --experimental-test-coverage --test-force-exit tests/*.js",
+    "test:types": "tsc -p types-test/tsconfig.json",
     "test:watch": "node --test --watch tests/*.js",
     "docs": "jsdoc2md lib/*.js > doc/api.md && cat doc/README.header.md doc/api.md doc/README.footer.md > README.md"
   },
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.0.0",
+    "@types/node": "^24.0.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.0.0",
     "globals": "^16.0.0",
     "jsdoc-to-markdown": "^9.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "typescript": "^5.9.0"
   },
   "directories": {
     "test": "tests"

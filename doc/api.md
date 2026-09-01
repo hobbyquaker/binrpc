@@ -143,6 +143,18 @@ methodCall
 <a name="module_server"></a>
 
 ## server
+<a name="module_server+close"></a>
+
+### server.close([callback]) ⇒ <code>Promise</code>
+Close the server. Stops accepting new connections and destroys open
+connections so the returned promise settles.
+
+**Kind**: instance method of [<code>server</code>](#module_server)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | optional - invoked with (error) when closed |
+
 <a name="Client"></a>
 
 ## Client
@@ -421,6 +433,8 @@ decode request
 
 * [Server](#Server)
     * [new Server(options, onListening)](#new_Server_new)
+    * ["error" (error)](#Server+event_error)
+    * ["listening"](#Server+event_listening)
     * ["[method]" (error, params, callback)](#Server+event_[method])
     * ["NotFound" (method, params)](#Server+event_NotFound)
 
@@ -435,6 +449,24 @@ decode request
 | options.port | <code>number</code> | port on which the server should listen |
 | onListening | <code>function</code> | function to be invoked in the server's `listening` callback |
 
+<a name="Server+event_error"></a>
+
+### "error" (error)
+Re-emitted from the underlying net server (e.g. EADDRINUSE).
+Without an error listener this throws, as usual for EventEmitters.
+
+**Kind**: event emitted by [<code>Server</code>](#Server)  
+
+| Param | Type |
+| --- | --- |
+| error | <code>Error</code> | 
+
+<a name="Server+event_listening"></a>
+
+### "listening"
+Fires when the server is listening
+
+**Kind**: event emitted by [<code>Server</code>](#Server)  
 <a name="Server+event_[method]"></a>
 
 ### "[method]" (error, params, callback)

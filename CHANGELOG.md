@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.2.0 / 2026-09-01
+
+- Fragmented TCP frames are reassembled correctly: a response or request header split across
+  chunks previously made the client report `malformed response` and the server hang on the
+  request forever. Both now buffer until the 8-byte header is complete.
+- `decodeData` guards truncated nested payloads instead of letting the per-type decoders throw
+  from inside socket data handlers.
+- Server: new `listening` and `error` events (re-emitted from the underlying net server, e.g.
+  `EADDRINUSE`), and `close([callback])` which returns a promise and destroys open keep-alive
+  connections so it settles. Unknown methods and undecodable requests are answered with an
+  encoded empty string — previously nothing was written and the caller ran into its response
+  timeout.
+- TypeScript declarations (`index.d.ts`) with a compile-time test (`npm run test:types`).
+- New edge-case test suite (empty containers, truncated frames for every cut position, oversized
+  declared lengths, fragmentation, server close/listening/NotFound behavior) — 126 tests, ~99%
+  line coverage on `lib/`; CI runs the coverage report on Node 24.
+
 ## 4.1.0 / 2026-09-01
 
 - Zero runtime dependencies: the unmaintained `binary` and `put` packages are replaced with plain

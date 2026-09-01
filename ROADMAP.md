@@ -34,17 +34,18 @@ Additive only, same wire bytes (the hex fixtures in `tests/protocol.js` must not
       from a socket data handler.
 - [x] `npm audit` clean.
 
-## 4.x — hardening and coverage (additive)
+## 4.2.0 — hardening and coverage (done)
 
-- [ ] Protocol edge-case tests: truncated frames, responses fragmented across TCP chunks,
-      oversized declared lengths, empty arrays/structs (there is an old commented-out TODO for
-      `decodeArray` of a length-0 array).
-- [ ] Coverage in CI via `node --test --experimental-test-coverage`.
-- [ ] TypeScript type declarations (`index.d.ts` plus a `types-test/` compile check, as in
+- [x] Protocol edge-case tests: truncated frames, responses fragmented across TCP chunks,
+      oversized declared lengths, empty arrays/structs (the old commented-out TODO for
+      `decodeArray` of a length-0 array included). The fragmentation tests uncovered and fixed
+      real bugs: a header split across TCP chunks broke both client and server.
+- [x] Coverage in CI via `node --test --experimental-test-coverage` (~99% lines on `lib/`).
+- [x] TypeScript type declarations (`index.d.ts` plus a `types-test/` compile check, as in
       [cul](https://github.com/hobbyquaker/cul)).
-- [ ] Server quality-of-life to match homematic-xmlrpc 2.0.0 where it is additive: `listening`
+- [x] Server quality-of-life to match homematic-xmlrpc 2.0.0 where it is additive: `listening`
       and `error` events, a `close()` that returns a promise, unknown/undecodable calls answered
-      (`NotFound` + empty response) instead of crashing.
+      with an encoded empty response instead of leaving the caller to time out.
 
 ## 5.0.0 — breaking, in lockstep with homematic-xmlrpc 3.0.0
 
