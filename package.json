@@ -39,8 +39,8 @@
   "scripts": {
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write . && eslint --fix .",
-    "test": "node --test --test-force-exit \"tests/*.js\"",
-    "test:watch": "node --test --watch \"tests/*.js\"",
+    "test": "node --test --test-force-exit tests/*.js",
+    "test:watch": "node --test --watch tests/*.js",
     "docs": "jsdoc2md lib/*.js > doc/api.md && cat doc/README.header.md doc/api.md doc/README.footer.md > README.md"
   },
   "license": "MIT",
