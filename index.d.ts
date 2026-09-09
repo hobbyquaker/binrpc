@@ -17,6 +17,8 @@ declare namespace binrpc {
         port: number | string;
         /** wait milliseconds until trying to reconnect after the socket was closed (default 2500, 0 disables) */
         reconnectTimeout?: number;
+        /** upper bound of the reconnect delay; every failed attempt doubles the delay up to this value, a successful connect resets it (default 30000) */
+        reconnectTimeoutMax?: number;
         /** wait milliseconds for a method call response (default 5000) */
         responseTimeout?: number;
         /** maximum number of methodCalls that are allowed in the queue (default 100) */
@@ -36,8 +38,15 @@ declare namespace binrpc {
         port: number | string;
         connected?: boolean;
         socket: Socket;
+        /** consecutive failed connection attempts since the last successful connect */
+        reconnectAttempts: number;
+        /** true after close() until the next connect() */
+        closed: boolean;
         methodCall(method: string, params: RpcValue[], callback?: MethodCallback): void;
+        /** (re)connect; also reopens a closed client */
         connect(): void;
+        /** destroy the socket and stop reconnecting; a pending call gets an error */
+        close(): void;
     }
 
     class Server extends EventEmitter {

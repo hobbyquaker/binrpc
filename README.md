@@ -120,16 +120,43 @@ RPC server factory
 ## client
 
 * [client](#module_client)
+    * [.reconnectTimer](#module_client+reconnectTimer) : <code>object</code> \| <code>null</code>
+    * [.reconnectAttempts](#module_client+reconnectAttempts) : <code>number</code>
+    * [.closed](#module_client+closed) : <code>boolean</code>
     * [.queue](#module_client+queue) : <code>Array</code>
     * [.queueMaxLength](#module_client+queueMaxLength) : <code>number</code>
     * [.queueRetryTimeout](#module_client+queueRetryTimeout) : <code>number</code>
     * [.pending](#module_client+pending) : <code>boolean</code>
     * [.responseTimeout](#module_client+responseTimeout) : <code>number</code>
+    * [.scheduleReconnect()](#module_client+scheduleReconnect)
     * [.connect()](#module_client+connect)
+    * [.close()](#module_client+close)
     * [.queuePush(buf, cb)](#module_client+queuePush)
     * [.queueShift()](#module_client+queueShift)
     * [.methodCall(method, params, callback)](#module_client+methodCall)
 
+<a name="module_client+reconnectTimer"></a>
+
+### client.reconnectTimer : <code>object</code> \| <code>null</code>
+The pending reconnect timer, if any. There is never more than one: a
+refused connect emits `error` and `close`, a dropped connection `end`
+and `close`, and every one of those used to arm its own timer, so the
+number of connection attempts doubled with each round (a client whose
+peer was gone for a while drove the process to 100 % CPU).
+
+**Kind**: instance property of [<code>client</code>](#module_client)  
+<a name="module_client+reconnectAttempts"></a>
+
+### client.reconnectAttempts : <code>number</code>
+Consecutive failed attempts since the last successful connect; drives the backoff.
+
+**Kind**: instance property of [<code>client</code>](#module_client)  
+<a name="module_client+closed"></a>
+
+### client.closed : <code>boolean</code>
+Set by close(): no further connection attempts.
+
+**Kind**: instance property of [<code>client</code>](#module_client)  
 <a name="module_client+queue"></a>
 
 ### client.queue : <code>Array</code>
@@ -160,10 +187,25 @@ Indicates if there is a request waiting for its response
 Time in milliseconds. How long to wait for a method call response
 
 **Kind**: instance property of [<code>client</code>](#module_client)  
+<a name="module_client+scheduleReconnect"></a>
+
+### client.scheduleReconnect()
+Arm the single reconnect timer unless one is pending, reconnecting is
+disabled or the client was closed. The delay starts at
+reconnectTimeout and doubles per failed attempt up to reconnectTimeoutMax.
+
+**Kind**: instance method of [<code>client</code>](#module_client)  
 <a name="module_client+connect"></a>
 
 ### client.connect()
-connect
+connect - also called for every reconnect; re-opens a closed client
+
+**Kind**: instance method of [<code>client</code>](#module_client)  
+<a name="module_client+close"></a>
+
+### client.close()
+close - destroy the socket and stop reconnecting. A pending method call
+gets an error, queued ones fail on their write. connect() re-opens the client.
 
 **Kind**: instance method of [<code>client</code>](#module_client)  
 <a name="module_client+queuePush"></a>
@@ -225,7 +267,8 @@ connections so the returned promise settles.
 | options | <code>object</code> |  |  |
 | options.host | <code>string</code> |  | the hostname or ip address to connect to |
 | options.port | <code>number</code> |  | the port to connect to |
-| [options.reconnectTimeout] | <code>number</code> | <code>2500</code> | wait milliseconds until trying to reconnect after the socket was closed |
+| [options.reconnectTimeout] | <code>number</code> | <code>2500</code> | wait milliseconds until trying to reconnect after the socket was closed; 0 disables reconnecting |
+| [options.reconnectTimeoutMax] | <code>number</code> | <code>30000</code> | upper bound of the reconnect delay: every failed attempt doubles the delay until this value, a successful connect resets it |
 | [options.responseTimeout] | <code>number</code> | <code>5000</code> | wait milliseconds for method call response |
 | [options.queueMaxLength] | <code>number</code> | <code>15</code> | maximum number of methodCalls that are allowed in the queue |
 

@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.3.0 / 2026-09-09
+
+- Client: a peer that is not there no longer drives the process to 100 % CPU. A refused connect
+  emits `error` and `close`, a dropped connection `end` and `close`, and every one of those armed
+  its own reconnect timer, so the number of attempts doubled with each round without bound (seen
+  as ~7,000 connects per second, 30,000 pending timers and a dead Node-RED on a box without a
+  ReGaHSS). There is now a single reconnect timer per client with exponential backoff:
+  `reconnectTimeout` (2500 ms) doubling per failed attempt up to the new option
+  `reconnectTimeoutMax` (30000 ms); a successful connect resets it.
+- Client: `reconnectTimeout: 0` disables reconnecting, as the documentation always said (it used
+  to fall back to the default).
+- Client: new `close()` — destroys the socket and stops reconnecting; a pending call gets an
+  error; `connect()` reopens the client. `reconnectAttempts` and `closed` are readable.
+
 ## 4.2.0 / 2026-09-01
 
 - Fragmented TCP frames are reassembled correctly: a response or request header split across
